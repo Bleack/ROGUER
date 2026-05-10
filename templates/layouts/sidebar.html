@@ -37,24 +37,24 @@
           <i class="nav-icon fas fa-users-cog"></i> Usuarios
         </a>
       </li>
-      {% if user.is_staff %}
       <div class="sidebar-footer"><hr></div>
+      {% if user.is_staff %}
         <li class="nav-item">
           <a class="nav-link" href="/admin/" target="_blank">&nbsp;
             <i class="nav-icon fas fa-solar-panel"></i> Panel de Administración
           </a>
         </li>
       {% endif %}
-    </ul>
-  </div>
-  <div class="sidebar-footer">
-    <hr>
-    <ul class="sidebar-nav" id="control">
       <li class="nav-item">
         <a class="nav-link disabled" href="#">&nbsp;
           <i class="nav-icon far fa-calendar-alt"></i> Último inicio de sesión: {{ user.last_login|date:"d/m/Y H:i" }}
         </a>
       </li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <hr>
+    <ul class="sidebar-nav" id="control">
       <li class="nav-item">
         <a class="nav-link disabled" href="#">&nbsp;
           <i class="nav-icon far fa-user-circle"></i> {{ user.first_name }} {{ user.last_name }}
