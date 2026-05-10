@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="{% static 'libs/google-fonts.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}" />
+    <link href="{% static 'libs/bootstrap.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'libs/jquery.dataTables.min.css' %}">
+    <script src="{% static 'libs/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'libs/chart.umd.js' %}"></script>
+    <script src="{% static 'libs/chartjs-plugin-datalabels.min.js' %}"></script>
+    <script src="{% static 'libs/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        const base_url = "/";
+    </script>
+    <title>ROGUER - {{ title|default:"ROGUER" }}</title>
+    <link rel="icon" href='{% static "img/logo2.png" %}'>
+</head>
+<body id="body">
+    {% include 'layouts/navbar.html' %}
+    <div class="col-md-12">&nbsp;</div>
+    <div class="container-title">
+        {% include 'layouts/sidebar.html' %}
+        <section class="col-md-10 content-wrapper">
+            <div class="col-md-12">
+                <div class="scroll-div">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>  
+        </section>
+    </div>
+</body>
+</html>

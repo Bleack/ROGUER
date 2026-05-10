@@ -1,0 +1,73 @@
+{% load static %}
+<div id="sidebar">
+  <div class="sidebar-content">
+    <ul class="sidebar-nav" id="modulos">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'panel' %}">&nbsp;
+          <i class="nav-icon fas fa-home"></i> Inicio
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'categorias' %}">&nbsp;
+          <i class="nav-icon fas fa-tags"></i> Categorías
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dependencias' %}">&nbsp;
+          <i class="nav-icon fas fa-sitemap"></i> Dependencias
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'equipos' %}">&nbsp;
+          <i class="nav-icon fas fa-desktop"></i> Equipos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'equipos_baja' %}">&nbsp;
+          <i class="nav-icon fas fa-ban"></i> Equipos de baja
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'prestamos' %}">&nbsp;
+          <i class="nav-icon fas fa-business-time"></i> Préstamos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'usuarios' %}">&nbsp;
+          <i class="nav-icon fas fa-users-cog"></i> Usuarios
+        </a>
+      </li>
+      {% if user.is_staff %}
+      <div class="sidebar-footer"><hr></div>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/" target="_blank">&nbsp;
+            <i class="nav-icon fas fa-solar-panel"></i> Panel de Administración
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <hr>
+    <ul class="sidebar-nav" id="control">
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">&nbsp;
+          <i class="nav-icon far fa-calendar-alt"></i> Último inicio de sesión: {{ user.last_login|date:"d/m/Y H:i" }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">&nbsp;
+          <i class="nav-icon far fa-user-circle"></i> {{ user.first_name }} {{ user.last_name }}
+        </a>
+      </li>
+      <li class="nav-item">
+          <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout-sidebar">
+                  &nbsp;<i class="nav-icon fas fa-power-off"></i> Cerrar sesión
+              </button>
+          </form>
+      </li>
+    </ul>
+  </div>
+</div>

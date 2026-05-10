@@ -1,0 +1,57 @@
+{% extends 'layouts/login_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row login">
+        <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-12 text-center">
+            <img src="{% static 'img/logo.png' %}" alt="..." class="img-fluid" style="width: 15%">
+        </div>
+        <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-12 subtitle text-center">Sistema de inventarios y préstamos</div>
+        <div><br></div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-4">&nbsp;</div>
+        <div class="col-md-4">&nbsp;<br>
+            <form method="post" class="mt-1">
+                {% csrf_token %}
+                <div class="secondary-title title-bg text-center" style="font-size: 30px">Iniciar sesión</div>
+                <div class="big-input" style="margin-top: 10px">
+                    <div class="input-group">
+                        <div class="input-group-text" style="color: black; background-color: white;"><i class="fas fa-user"></i></div>
+                        <input type="text" class="form-control" id="id_username" name="username" placeholder="Usuario" required autofocus>
+                    </div>
+                </div>
+                <div class="big-input" style="margin-top: 8px;">
+                    <div class="input-group">
+                        <div class="input-group-text" style="color: black; background-color: white;"><i class="fas fa-key"></i></div>
+                        <input type="password" id="id_password" name="password" placeholder="********" autocomplete="current-password" class="form-control" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success" style="border-color: #064C61; color: white; border-radius:5px; width: 100%;">
+                    <b>Ingresar</b>
+                </button>
+            </form>
+            <br>
+        </div>
+        <div class="col-md-4">&nbsp;</div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-4">&nbsp;</div>
+        <div class="col-md-4 text-center">
+            {% if form.errors %}
+                <div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Atención:</strong> Usuario o contraseña incorrectos
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% else %}
+                <div id="message"></div>
+            {% endif %}
+        </div>
+        <div class="col-md-1">&nbsp;</div>
+    </div>
+</div>
+{% endblock %}

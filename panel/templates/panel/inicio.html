@@ -1,0 +1,198 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Profe le informamos desde ya que los gráficos son solo como ejemplos -->
+<div style="margin-top: .75rem;"></div>
+<div class="row">
+    <div class="col-12 col-md-3 mb-3">
+        <div class="card-home">
+            <div class="tittle">Resumen rápido</div>
+            <hr>
+            <ul class="lista">
+                <li>
+                    <span><i class="fas fa-desktop"></i> Equipos totales</span>
+                    <span class="valor">1.000</span>
+                </li>
+                <li>
+                    <span><i class="fas fa-hand-holding"></i> Equipos prestados</span>
+                    <span class="valor">250</span>
+                </li>
+                <li>
+                    <span><i class="fas fa-check-circle"></i> Equipos en oficinas</span>
+                    <span class="valor">100</span>
+                </li>
+                <li>
+                    <span><i class="fas fa-business-time"></i> Préstamos activos</span>
+                    <span class="valor">37</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-3 mb-3">
+        <div class="card-home">
+            <div class="tittle">Resumen de préstamos</div>
+            <hr>
+            <div class="contenedor-grafico">
+                <canvas id="chartDevoluciones"></canvas>
+            </div>
+       </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+        <div class="card-home">
+            <div class="tittle">Equipos por categorías</div>
+            <hr>
+            <div class="contenedor-grafico">
+                <canvas id="chartBarras"></canvas>
+            </div> 
+        </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+        <div class="card-home">
+            <div class="tittle">Préstamos por categorías</div>
+            <hr>
+            <div class="contenedor-grafico">
+                <canvas id="chartBarras2"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+        <div class="card-home">
+            <div class="tittle">Top usuarios con más prestamos</div>
+            <hr>
+            <div class="contenedor-grafico">
+                <canvas id="chartBarras3"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Chart(document.getElementById('chartDevoluciones'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Devuelto', 'No devuelto'],
+            datasets: [{
+                data: [35, 40], 
+                backgroundColor: [
+                    '#28a745', 
+                    '#dc3545' 
+                ],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '50%', 
+            plugins: {
+                legend: { display: false }
+
+            }
+        }
+    });
+</script>
+<script>
+    new Chart(document.getElementById('chartBarras'), {
+        type: 'bar',
+        data: {
+            labels: ['Notebooks', 'Proyectores', 'Cámaras', 'Impresoras'],
+            datasets: [{
+                label: 'Equipos',
+                data: [120, 90, 45, 60],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, 
+            layout: {
+                padding: { top: 5 } 
+            },
+            scales: {
+                y: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { color: 'rgba(255,255,255,0.05)' } 
+                },
+                x: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { display: false } 
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+</script>
+<script>
+    new Chart(document.getElementById('chartBarras2'), {
+        type: 'bar',
+        data: {
+            labels: ['Notebooks', 'Proyectores', 'Cámaras', 'Impresoras'],
+            datasets: [{
+                label: 'Equipos',
+                data: [30, 45, 20, 5],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, 
+            layout: {
+                padding: { top: 5 } 
+            },
+            scales: {
+                y: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { color: 'rgba(255,255,255,0.05)' } 
+                },
+                x: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { display: false } 
+                }
+            },
+            plugins: {
+                legend: { display: false } 
+            }
+        }
+    });
+</script>
+<script>
+    new Chart(document.getElementById('chartBarras3'), {
+        type: 'bar',
+        data: {
+            labels: ['Nicolás R', 'John O', 'Claudio G'],
+            datasets: [{
+                label: 'Equipos',
+                data: [120, 90, 45],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, 
+            layout: {
+                padding: { top: 5 } 
+            },
+            scales: {
+                y: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { color: 'rgba(255,255,255,0.05)' } 
+                },
+                x: { 
+                    ticks: { color: 'white', font: { size: 10 } }, 
+                    grid: { display: false } 
+                }
+            },
+            plugins: {
+                legend: { display: false } 
+            }
+        }
+    });
+</script>
+{% endblock %}
