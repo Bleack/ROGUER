@@ -9,6 +9,6 @@ Gestión de Ubicaciones: Asignación dinámica de activos a diversas oficinas o 
 Control de Estado (Bajas): Flujo de trabajo para dar de baja equipos, gestionar su reparación y reactivarlos en el inventario.
 Módulo de Préstamos: Registro detallado de préstamos vinculados a usuarios específicos, garantizando la trazabilidad de cada ítem.
  
-TecnologíasBackend: Python & Django Web Framework.
+Tecnologías Backend: Python & Django Web Framework.
 Base de Datos: SQLite.
 Frontend: CSS, Bootstrap, JS, Chart.js y Django Templates.
