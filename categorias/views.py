@@ -3,4 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-    return render(request, 'categorias/categorias.html')
+    context = {
+        'title': 'Categorías'
+    }
+    return render(request, 'categorias/categorias.html', context)
