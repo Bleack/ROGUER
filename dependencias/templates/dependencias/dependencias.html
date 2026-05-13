@@ -5,7 +5,276 @@
 <img src="{% static 'img/ejemplo_dependencias_1.png' %}" alt="..." class="img-fluid" >
 <br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<img src="{% static 'img/ejemplo_dependencias_2.png' %}" alt="..." class="img-fluid" >
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #1f2635;
+        padding: 15px;
+    }
+
+    .top-bar {
+        width: 100%;
+        background: #2a3142;
+        border-radius: 12px;
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top-title {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .badge-floor {
+        background: #f2df74;
+        color: #000;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .floor-select {
+        background: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 15px;
+        min-width: 200px;
+        outline: none;
+    }
+
+    .table-container {
+        background: #d9d9d9;
+        border-radius: 14px;
+        padding: 15px;
+    }
+
+    table.dataTable {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    table.dataTable thead th {
+        background: #d9d9d9;
+        color: #000;
+        font-weight: 700;
+        text-align: center;
+        border-bottom: none !important;
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    table.dataTable tbody td {
+        padding: 14px;
+        text-align: center;
+        font-size: 15px;
+        border-bottom: none !important;
+    }
+
+    table.dataTable tbody tr:nth-child(odd) {
+        background: #cfcfcf;
+    }
+
+    table.dataTable tbody tr:nth-child(even) {
+        background: #d9d9d9;
+    }
+
+    table.dataTable tbody tr:hover {
+        background: #c4c4c4 !important;
+    }
+
+    .btn-equipo {
+        background: #1f9d55;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .icon-edit {
+        color: black;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .icon-pdf {
+        color: red;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input,
+    .dataTables_wrapper .dataTables_length select {
+        border: 1px solid #bdbdbd;
+        border-radius: 4px;
+        padding: 5px;
+        background: white;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        border: none !important;
+        background: transparent !important;
+        color: black !important;
+        padding: 5px 10px !important;
+        border-radius: 4px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        border: 1px solid #999 !important;
+        background: white !important;
+    }
+
+    .dataTables_info {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="top-bar">
+    <div class="top-title">
+        <i class="fas fa-sitemap"></i>
+        Gestor de dependencias =>
+        <span class="badge-floor">Piso 1</span>
+    </div>
+
+    <select class="floor-select">
+        <option>Seleccionar piso</option>
+        <option>Piso 1</option>
+        <option>Piso 2</option>
+        <option>Piso 3</option>
+    </select>
+</div>
+
+<div class="table-container">
+    <table id="employeeTable" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Piso</th>
+                <th>Cantidad equipos</th>
+                <th>Gestionar</th>
+                <th>PDF</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>101</td>
+                <td>Bodega chica</td>
+                <td>Piso 1</td>
+                <td>
+                    <button class="btn-equipo">
+                        <i class="fas fa-desktop"></i> 0 Equipos
+                    </button>
+                </td>
+                <td><i class="far fa-edit icon-edit"></i></td>
+                <td><i class="far fa-file-pdf icon-pdf"></i></td>
+            </tr>
+
+            <tr>
+                <td>102</td>
+                <td>Sala de Profesores</td>
+                <td>Piso 1</td>
+                <td>
+                    <button class="btn-equipo">
+                        <i class="fas fa-desktop"></i> 0 Equipos
+                    </button>
+                </td>
+                <td><i class="far fa-edit icon-edit"></i></td>
+                <td><i class="far fa-file-pdf icon-pdf"></i></td>
+            </tr>
+
+            <tr>
+                <td>103</td>
+                <td>Comedor personal</td>
+                <td>Piso 1</td>
+                <td>
+                    <button class="btn-equipo">
+                        <i class="fas fa-desktop"></i> 0 Equipos
+                    </button>
+                </td>
+                <td><i class="far fa-edit icon-edit"></i></td>
+                <td><i class="far fa-file-pdf icon-pdf"></i></td>
+            </tr>
+
+            <tr>
+                <td>104</td>
+                <td>Secretaria Inspectoría</td>
+                <td>Piso 1</td>
+                <td>
+                    <button class="btn-equipo">
+                        <i class="fas fa-desktop"></i> 0 Equipos
+                    </button>
+                </td>
+                <td><i class="far fa-edit icon-edit"></i></td>
+                <td><i class="far fa-file-pdf icon-pdf"></i></td>
+            </tr>
+
+            <tr>
+                <td>105</td>
+                <td>Administración</td>
+                <td>Piso 1</td>
+                <td>
+                    <button class="btn-equipo">
+                        <i class="fas fa-desktop"></i> 0 Equipos
+                    </button>
+                </td>
+                <td><i class="far fa-edit icon-edit"></i></td>
+                <td><i class="far fa-file-pdf icon-pdf"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#employeeTable').DataTable({
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100],
+
+            language: {
+                lengthMenu: 'Mostrar _MENU_ registros',
+                search: 'Buscar:',
+                info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+                paginate: {
+                    first: 'Primero',
+                    last: 'Último',
+                    next: 'Siguiente',
+                    previous: 'Anterior'
+                }
+            },
+
+            order: [[0, 'asc']]
+        });
+    });
+</script>
+
 
 
 {% endblock %}
