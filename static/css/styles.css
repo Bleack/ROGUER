@@ -1,4 +1,4 @@
-/* ===== ESTILOS GENERALES ===== */
+/* generales */
 * {
     margin: 0;
     padding: 0;
@@ -11,13 +11,10 @@ body {
     color: #fff;
 }
 
-/* ===== ESTILOS DEL BODY ===== */
+
+/* body */
 #body {
     background-color: #212631;
-    /* background-color: #171717; */
-    /* background-color: #0C151E; */
-    /* background-image: url(../IMG/background.png); 
-    background-size: 100%; */
 }
 
 .check-paragraph::before {
@@ -37,7 +34,8 @@ body {
 .check-paragraph {
     display: inline-block;
 }
-/* Scrollbar estilo macOS (versión blanca - modo claro) */
+
+/* scrollbar */
 *::-webkit-scrollbar {
     width: 6px;
     height: 8px;
@@ -48,15 +46,17 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.4); /* blanco translúcido */
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: 20px;
     transition: background-color 0.25s ease;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.8); /* más visible al hover */
+    background-color: rgba(255, 255, 255, 0.8);
 }
-/* ===== ESTILOS DEL SIDEBAR ===== */
+
+
+/* sidebar */
 #sidebar {
     position: fixed;
     top: 51px;
@@ -75,7 +75,6 @@ body {
     transition: transform 0.3s ease, margin-left 0.3s ease;
     transform: translateX(0);
 }
-
 
 .btn-logout-sidebar {
     background: none;
@@ -98,7 +97,6 @@ body {
     background-color: #2a303d;
     color: #fff;
     transition: 0.3s;
-
 }
 
 .sidebar-content {
@@ -164,10 +162,10 @@ body {
     margin: 10px 15px;
 }
 
-/* ===== ESTILOS DEL NAVBAR ===== */
+
+/* navbar */
 .navbar {
     background-color: #0F1A2B;
-    /* background-color: #0A0A0A; */
 }
 
 .navbar-toggler {
@@ -217,7 +215,8 @@ body {
     outline: none;
 }
 
-/* ===== ESTILOS DEL CONTENIDO PRINCIPAL ===== */
+
+/* contenido principal */
 .content-wrapper {
     margin-left: 190px;
     padding: 20px;
@@ -261,9 +260,9 @@ body {
     align-items: center;
 }
 
-/* ===== ESTILOS DE TABLAS Y TARJETAS ===== */
 
-.card-home{
+/* tarjetas del home */
+.card-home {
     background-color: #2a303d;
     color: #fff;
     border-radius: .5rem;
@@ -275,7 +274,7 @@ body {
     overflow: hidden;
 }
 
-.card-home .tittle{
+.card-home .tittle {
     font-size: 18px;
     padding: 12px 15px 0px 15px;
     font-weight: 600;
@@ -290,12 +289,14 @@ body {
     min-height: 0;
     padding: 0 10px 10px 10px; 
 }
-.card-home .lista{
+
+.card-home .lista {
     font-size: 12px;
     list-style: none;
     margin: 0;
     padding: 0px 15px;
 }
+
 .card-home .lista li {
     display: flex;
     justify-content: space-between;
@@ -304,14 +305,17 @@ body {
     border-bottom: 1px solid rgba(255,255,255,0.05);
     color: whitesmoke;
 }
+
 .card-home .lista li:last-child {
     border-bottom: none;
 }
+
 .card-home .lista li .valor {
     color: #ffffff;
     font-weight: 700;
     font-size: 15px;
 }
+
 .card-home .lista li i {
     margin-right: 8px;
     color: white; 
@@ -319,6 +323,13 @@ body {
     text-align: center;
 }
 
+canvas {
+    width: 100% !important;
+    height: 190px;
+}
+
+
+/* dependencias */
 #select-piso {
     width: 200px;
 }
@@ -330,56 +341,7 @@ body {
     align-items: stretch;
 }
 
-/* DARK MODE */
-/* .dependencias-box {
-    background-color: #2a303d;
-    border: 2px solid #323a49;
-    border-radius: 8px;
-    flex: 1 1 250px;
-    max-width: 300px;
-    min-width: 220px;
-    height: 130px;
-    padding: 10px;
-    text-align: left;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    color: white;
-}
-
-.dependencias-box .tittle {
-    font-size: 18px;
-    background-color: #212631;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: left;
-    transition: background-color 1s;
-    color: white;
-}
-
-.dependencias-box .secondtext {
-    font-size: 12px;
-    display: flex;
-    align-items: left;
-    gap: 5px;
-}
-
-a.dependencias-box {
-    text-decoration: none;
-    color: white;
-    margin-top: .75rem;
-}
-
-a.dependencias-box:hover {
-    color: white;
-}
-
-
-.dependencias-box:hover .tittle {
-    background-color: #0F1A2B;
-} */
-
-
-/* LIGHT MODE */
+/* LIGHT MODE - Dependencias */
 .dependencias-box {
     background-color: #E4E3E3;
     border: 1px solid #ddd;
@@ -394,6 +356,7 @@ a.dependencias-box:hover {
     transition: all 0.3s ease;
     color: black;
 }
+
 .dependencias-box .tittle {
     font-size: 18px;
     background-color: #BDC4D4;
@@ -403,20 +366,24 @@ a.dependencias-box:hover {
     transition: background-color 1s;
     color: black;
 }
+
 .dependencias-box .secondtext {
     font-size: 12px;
     display: flex;
     align-items: left;
     gap: 5px;
 }
+
 a.dependencias-box {
     text-decoration: none;
     color: black;
     margin-top: .75rem;
 }
+
 a.dependencias-box:hover {
     color: black;
 }
+
 .dependencias-box:hover .tittle {
     background-color: #809ce4;
 }
@@ -457,6 +424,8 @@ a.dependencias-box:hover {
     font-size: 14px;
 }
 
+
+/* tablas */
 .box-table {
     margin-top: .75rem;
     padding: .75rem;
@@ -607,6 +576,8 @@ a.dependencias-box:hover {
     overflow-x: hidden;
 }
 
+
+/* categorias */
 .categoria-container {
     display: flex;
     flex-wrap: wrap;
@@ -717,12 +688,8 @@ a.categoria-card:hover {
     font-size: 14px;
 }
 
-canvas {
-    width: 100% !important;
-    height: 190px;
-}
 
-/* ===== ESTILOS DE FORMULARIOS Y BOTONES ===== */
+/* formularios - modals */
 .modal-title {
     font-size: 25px;
     color: black;
@@ -767,7 +734,6 @@ canvas {
     display: block;
     width: 100%;
     background-color: #52677D;
-    /* background-color: #262626; #42515e; */
     border-radius: .5rem;
     color: white;
     border-color: #0a5c8b;
@@ -787,82 +753,13 @@ canvas {
     transition: .5s;
 }
 
-/* ===== ESTILOS DE LOGIN ===== */
-.login {
-    text-align: center;
-}
-
-.login hr {
-    color: white;
-}
-
-.login .title {
-    font-family: Poppins, sans-serif;
-    font-size: 50px;
-    color: white;
-}
-
-.login .subtitle {
-    font-family: Poppins, sans-serif;
-    font-size: 20px;
-    color: white !important;
-}
-
-.login img {
-    width: 25%;
-}
-
-.login-text {
-    font-family: 'ubuntu condensed', sans-serif;
-    margin-top: black;
-    font-size: 25px;
-}
-
-.card-login {
-    padding: 0.75rem;
-    border-radius: 10px 10px .25rem 0.25rem;
-}
-
-.title-bg {
-    background: #fff;
-    color: #3a3a3a;
-    padding: 0 12px;
-    box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 8px 8px 0 0;
-}
-
-.big-input {
-    position: relative;
-    margin-top: 10px;
-    height: 45px;
-}
-
-.big-input-box {
-    width: 100%;
-    height: 45px;
-    font-size: 20px;
-    padding-left: 50px;
-    box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
-    border: none;
-}
-
 .input-group-text {
     color: black;
     background-color: white;
 }
 
-#login-button {
-    background-color: #06610b;
-    border-color: #613d06;
-    color: white;
-    border-radius: 5px;
-    width: 100%;
-}
 
-
-
-/* ===== MEDIA QUERIES ===== */
-/* Para pantallas menores a 875px */
+/* mediaqueries */
 @media (max-width: 875px) {
     #sidebar {
         transform: translateX(-100%);

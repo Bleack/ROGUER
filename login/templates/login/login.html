@@ -1,57 +1,46 @@
 {% extends 'layouts/login_layout.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
-    <div class="row login">
-        <div class="col-md-12">&nbsp;</div>
-        <div class="col-md-12 text-center">
-            <img src="{% static 'img/logo.png' %}" alt="..." class="img-fluid" style="width: 15%">
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-card-brand">
+            <img src="{% static 'img/logo2.png' %}" alt="ROGUER" class="login-card-logo">
+            <span class="login-card-brand-name">ROGUER</span>
         </div>
-        <div class="col-md-12">&nbsp;</div>
-        <div class="col-md-12 subtitle text-center">Sistema de inventarios y préstamos</div>
-        <div><br></div>
-        <hr>
-    </div>
-    <div class="row">
-        <div class="col-md-4">&nbsp;</div>
-        <div class="col-md-4">&nbsp;<br>
-            <form method="post" class="mt-1">
-                {% csrf_token %}
-                <div class="secondary-title title-bg text-center" style="font-size: 30px">Iniciar sesión</div>
-                <div class="big-input" style="margin-top: 10px">
-                    <div class="input-group">
-                        <div class="input-group-text" style="color: black; background-color: white;"><i class="fas fa-user"></i></div>
-                        <input type="text" class="form-control" id="id_username" name="username" placeholder="Usuario" required autofocus>
-                    </div>
+        <p class="login-card-subtitle">Sistema de inventarios y préstamos</p>
+        <hr class="login-divider-top">
+        <h2 class="login-card-heading">Bienvenido <span class="login-heading-highlight">de nuevo</span></h2>
+        <p class="login-card-desc">Inicia sesión para continuar gestionando tus activos.</p>
+        
+        <form method="post" class="login-card-form" id="login-form">
+            {% csrf_token %}
+            <div class="login-field-group">
+                <label class="login-field-label" for="id_username">Usuario</label>
+                <div class="login-field">
+                    <i class="fas fa-user login-field-icon"></i>
+                    <input type="text" id="id_username" name="username" placeholder="Usuario" required autocomplete="off" class="login-field-input">
                 </div>
-                <div class="big-input" style="margin-top: 8px;">
-                    <div class="input-group">
-                        <div class="input-group-text" style="color: black; background-color: white;"><i class="fas fa-key"></i></div>
-                        <input type="password" id="id_password" name="password" placeholder="********" autocomplete="current-password" class="form-control" required>
-                    </div>
+            </div>
+            <div class="login-field-group">
+                <label class="login-field-label" for="id_password">Contraseña</label>
+                <div class="login-field">
+                    <i class="fas fa-lock login-field-icon"></i>
+                    <input type="password" id="id_password" name="password" placeholder="••••••••" autocomplete="current-password" required class="login-field-input">
                 </div>
-                
-                <button type="submit" class="btn btn-success" style="border-color: #064C61; color: white; border-radius:5px; width: 100%;">
-                    <b>Ingresar</b>
-                </button>
-            </form>
-            <br>
+            </div>
+            <button type="submit" class="login-card-btn" id="btn-login">Iniciar sesión <i class="fas fa-arrow-right"></i></button>
+        </form>
+        <div id="login-error-alert" class="alert alert-danger" style="display: none;">
+            <strong>Atención:</strong> Datos incorrectos o usuario inactivo
         </div>
-        <div class="col-md-4">&nbsp;</div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-4">&nbsp;</div>
-        <div class="col-md-4 text-center">
-            {% if form.errors %}
-                <div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Atención:</strong> Datos incorrectos o usuario inactivo
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% else %}
-                <div id="message"></div>
-            {% endif %}
+
+        <div id="login-success-alert" class="alert alert-success" style="display: none;">
+            Sesión iniciada correctamente
         </div>
-        <div class="col-md-1">&nbsp;</div>
+        <hr class="login-divider-top">
+        <a class="btn-volver" href="/">Volver al inicio</a>
+        <a href="/#contacto" class="login-card-footer">¿No tienes una cuenta? <span class="login-footer-link">Contacta a tu administrador.</span></a>
     </div>
 </div>
+<script src="{% static 'js/login.js' %}"></script>
 {% endblock %}
