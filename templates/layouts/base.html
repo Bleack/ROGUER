@@ -34,5 +34,202 @@
             </div>  
         </section>
     </div>
+
+<!-- Modal rápido: Registrar Categoría -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalRapidoCategoria" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="far fa-plus-square"></i> Registrar Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="formRapidoCategoria" novalidate>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-0">
+                        <i class="fas fa-tag"></i>
+                        <label for="rap_cat_nombre" class="form-label">Nombre de la categoría</label>
+                        <input type="text" id="rap_cat_nombre" name="nombre" class="form-control" autocomplete="off" required placeholder="Ej: Notebooks">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarRapidoCategoria">
+                        <i class="fas fa-save me-1"></i>Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal rápido: Registrar Usuario -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalRapidoUsuario" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="far fa-plus-square"></i> Registrar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="formRapidoUsuario" novalidate>
+                {% csrf_token %}
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <i class="fas fa-user"></i>
+                        <label for="rap_usu_nombre" class="form-label">Nombre completo</label>
+                        <input type="text" id="rap_usu_nombre" name="nombre" class="form-control" autocomplete="off" required placeholder="Jorge Hernandez F">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-id-card"></i>
+                        <label for="rap_usu_rut" class="form-label">RUT</label>
+                        <input type="text" id="rap_usu_rut" name="rut" class="form-control" autocomplete="off" required placeholder="11.111.111-1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarRapidoUsuario">
+                        <i class="fas fa-save me-1"></i>Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal rápido: Registrar Equipo -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalRapidoEquipo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="far fa-plus-square"></i> Registrar Equipo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="formRapidoEquipo" novalidate>
+                {% csrf_token %}
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <i class="fas fa-tags"></i>
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" id="rap_eq_categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-desktop"></i>
+                        <label class="form-label">Equipo</label>
+                        <select class="form-select" id="rap_eq_equipo" required disabled>
+                            <option value="">Primero seleccione categoría</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-tag"></i>
+                        <label class="form-label">Marca</label>
+                        <input type="text" id="rap_eq_marca" name="marca" class="form-control" autocomplete="off" required placeholder="Marca">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-cube"></i>
+                        <label class="form-label">Modelo</label>
+                        <input type="text" id="rap_eq_modelo" name="modelo" class="form-control" autocomplete="off" required placeholder="Modelo">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-barcode"></i>
+                        <label class="form-label">N° Serie</label>
+                        <input type="text" id="rap_eq_nserie" name="nserie" class="form-control" autocomplete="off" required placeholder="Número de serie">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-clipboard-list"></i>
+                        <label class="form-label">N° Inventario</label>
+                        <input type="text" id="rap_eq_ninv" name="ninv" class="form-control" autocomplete="off" required placeholder="Número de inventario">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-coins"></i>
+                        <label class="form-label">Fondos</label>
+                        <input type="text" id="rap_eq_fondos" name="fondos" class="form-control" autocomplete="off" required placeholder="Fondos">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-user-tie"></i>
+                        <label class="form-label">Registrado por</label>
+                        <input type="text" class="form-control" readonly value="{{ user.get_full_name|default:user.username }}">
+                    </div>
+                    <div class="col-md-12">
+                        <i class="fas fa-align-left"></i>
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="rap_eq_observaciones" name="observaciones" class="form-control" rows="2" placeholder="Observaciones"></textarea>
+                    </div>
+                    <input type="hidden" id="rap_eq_id_categoria" name="categoria" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarRapidoEquipo">
+                        <i class="fas fa-save me-1"></i>Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal rápido: Registrar Préstamo -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalRapidoPrestamo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="far fa-plus-square"></i> Registrar Préstamo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="formRapidoPrestamo" novalidate>
+                {% csrf_token %}
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <i class="fas fa-tags"></i>
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" id="rap_pr_categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-desktop"></i>
+                        <label class="form-label">Equipo</label>
+                        <select class="form-select" id="rap_pr_equipo" required disabled>
+                            <option value="">Primero seleccione categoría</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-user"></i>
+                        <label class="form-label">Usuario</label>
+                        <select class="form-select" id="rap_pr_usuario" name="usuario" required>
+                            <option value="">Seleccione un usuario</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-calendar"></i>
+                        <label class="form-label">Fecha de Préstamo</label>
+                        <input type="date" class="form-control" id="rap_pr_fecha" name="f_prestamo" required>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-user-tie"></i>
+                        <label class="form-label">Administrador</label>
+                        <input type="text" class="form-control" readonly value="{{ user.get_full_name|default:user.username }}">
+                    </div>
+                    <div class="col-md-12">
+                        <i class="fas fa-comment"></i>
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="rap_pr_observacion" name="observacion" class="form-control" rows="2" placeholder="Observaciones"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarRapidoPrestamo">
+                        <i class="fas fa-save me-1"></i>Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/modales_globales.js' %}"></script>
+
 </body>
 </html>

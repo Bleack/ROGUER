@@ -2,287 +2,114 @@
 {% block content %}
 {% load static %}
 
-<style>
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+<link rel="stylesheet" href="{% static 'css/prestamos.css' %}">
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f4f5f7;
-        color: #333;
-        padding: 40px 24px;
-        min-height: 100vh;
-    }
-
-    .badge-floor {
-        background: #f2df74;
-        color: #000;
-        padding: 3px 8px;
-        border-radius: 5px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .section-title {
-        width: 100%;
-        background: #1f2937;
-        color: #fff;
-        padding: 16px 24px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    .section-title i {
-        margin-right: 8px;
-    }
-
-    .table-wrapper {
-        max-width: 1500px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
-        overflow: hidden;
-    }
-
-    .icon-edit {
-        color: black;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        padding: 16px 18px 8px 18px;
-        font-size: 13px;
-        color: #555;
-    }
-
-    .dataTables_wrapper .dataTables_length select,
-    .dataTables_wrapper .dataTables_filter input {
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-        padding: 6px 10px;
-        font-size: 13px;
-        font-family: 'Inter', sans-serif;
-        color: #333;
-        background: #fff;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-
-    .dataTables_wrapper .dataTables_length select:focus,
-    .dataTables_wrapper .dataTables_filter input:focus {
-        border-color: #4a5568;
-        box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.12);
-    }
-
-    .dataTables_wrapper .dataTables_filter input {
-        margin-left: 8px;
-    }
-
-    .dataTables_wrapper .dataTables_filter label {
-        font-weight: 500;
-    }
-
-    table.dataTable {
-        width: 100% !important;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin: 0 !important;
-    }
-
-    table.dataTable thead th {
-        background: #f9fafb;
-        color: #374151;
-        font-weight: 600;
-        font-size: 12.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        padding: 12px 18px;
-        border-bottom: 2px solid #e5e7eb;
-        text-align: left;
-        white-space: nowrap;
-        position: relative;
-    }
-
-    table.dataTable tbody td {
-        padding: 11px 18px;
-        font-size: 13.5px;
-        color: #4b5563;
-        border-bottom: 1px solid #f0f0f0;
-        vertical-align: middle;
-    }
-
-    table.dataTable tbody tr {
-        background-color: #ffffff;
-        transition: background-color 0.15s;
-    }
-
-    table.dataTable tbody tr.even {
-        background-color: #fafbfc;
-    }
-
-    table.dataTable tbody tr:hover {
-        background-color: #f0f4ff !important;
-    }
-
-    table.dataTable.no-footer {
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .dataTables_wrapper .dataTables_paginate {
-        padding: 14px 18px 16px 18px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        border: 1px solid #d1d5db !important;
-        border-radius: 6px !important;
-        background: #ffffff !important;
-        color: #4b5563 !important;
-        padding: 6px 12px !important;
-        font-size: 13px !important;
-        font-family: 'Inter', sans-serif !important;
-        font-weight: 500;
-        margin: 0 2px;
-        cursor: pointer;
-        transition: all 0.2s;
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background: #f3f4f6 !important;
-        color: #111827 !important;
-        border-color: #9ca3af !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        border-color: #4a5568 !important;
-        font-weight: 600;
-    }
-
-    .dataTables_wrapper .dataTables_info {
-        padding: 14px 18px 16px 18px;
-        font-size: 13px;
-        color: #6b7280;
-    }
-
-    @media (max-width: 640px) {
-        body {
-            padding: 16px 8px;
-        }
-
-        table.dataTable thead th,
-        table.dataTable tbody td {
-            padding: 10px 12px;
-            font-size: 12.5px;
-        }
-    }
-</style>
-
-
-<div class="section-title">
-        <i class="fas fa-sitemap"></i>
-        administrador de prestamos =>
-        <span class="badge-floor">Registro de prestamo</span>
-</div>
-
-<div class="table-wrapper">
-        <table id="employeeTable" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Categoria</th>
-                    <th>Marca</th>
-                    <th>Usuario</th>
-                    <th>Estado</th>
-                    <th>Observaciones</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Cámaras</td>
-                    <td>MAC</td>
-                    <td>John Doe</td>
-                    <td>Disponible</td>
-                    <td>No hay observaciones</td>
-                    <td><i class="far fa-edit icon-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Computadores</td>
-                    <td>Lenovo</td>
-                    <td>Jane Smith</td>
-                    <td>En préstamo</td>
-                    <td>El equipo necesita mantenimiento</td>
-                    <td><i class="far fa-edit icon-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Impresoras</td>
-                    <td>Hp</td>
-                    <td>John Doe</td>
-                    <td>Disponible</td>
-                    <td>No hay observaciones</td>
-                    <td><i class="far fa-edit icon-edit"></i></td>
-                </tr>
-                 <tr>
-                    <td>4</td>
-                    <td>Proyectores</td>
-                    <td>Lenovo</td>
-                    <td>Jane Smith</td>
-                    <td>En préstamo</td>
-                    <td>El equipo necesita mantenimiento</td>
-                    <td><i class="far fa-edit icon-edit"></i></td>
-                </tr>
-            </tbody>
-        </table>
+<div id="prestamosPage" data-url-base="{% url 'prestamos' %}">
+    <div class="box-home">
+        <label><i class="fas fa-users-cog"></i>&nbsp;Administrador de préstamos</label> ⇒
+        <a href="#" class="badge text-dark text-decoration-none" style="background-color: #f1e37d;" data-bs-toggle="modal" data-bs-target="#modalPrestamo">
+            <i class="far fa-plus-square"></i> Registrar Préstamo
+        </a>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('#employeeTable').DataTable({
-                pageLength: 10,
-                lengthMenu: [10, 25, 50, 100],
-                language: {
-                    lengthMenu: '_MENU_ Registro',
-                    search: 'Buscar:',
-                    info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
-                    infoEmpty: 'Showing 0 to 0 of 0 entries',
-                    infoFiltered: '(filtered from _MAX_ total entries)',
-                    paginate: {
-                        first: 'First',
-                        last: 'Last',
-                        next: 'Siguiente',
-                        previous: 'Anterior'
-                    }
-                },
-                order: [[0, 'asc']],
-                columnDefs: [
-                    { orderable: true, targets: [0, 1, 2, 3] }
-                ]
-            });
-        });
-    </script>
+    <div class="box-table mt-3">
+        <div class="table-responsive">
+            <table id="controls-table" class="table text-center table-striped table-bordered">
+                <thead class="third-title">
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoría</th>
+                        <th>Marca</th>
+                        <th>Usuario</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<br>
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalPrestamo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus"></i> Registrar Nuevo Préstamo
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formPrestamo" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_categoria" class="form-label">
+                                <i class="fas fa-tags"></i> Categoría
+                            </label>
+                            <select class="form-select" id="id_categoria" name="id_categoria" required>
+                                <option value="">Seleccione una categoría</option>
+                                {% for cat in categorias %}
+                                <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_equipo" class="form-label">
+                                <i class="fas fa-desktop"></i> Equipo
+                            </label>
+                            <select class="form-select" id="id_equipo" name="id_equipo" required disabled>
+                                <option value="">Seleccione un equipo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_user" class="form-label">
+                                <i class="fas fa-user"></i> Usuario
+                            </label>
+                            <select class="form-select" id="id_user" name="usuario" required>
+                                <option value="">Seleccione un usuario</option>
+                                {% for u in usuarios %}
+                                <option value="{{ u.id }}">{{ u.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="f_prestamo" class="form-label">
+                                <i class="fas fa-calendar"></i> Fecha de Préstamo
+                            </label>
+                            <input type="date" class="form-control" id="f_prestamo" name="f_prestamo" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre_adm" class="form-label">
+                                <i class="fas fa-user-tie"></i> Administrador
+                            </label>
+                            <input type="text" class="form-control" id="nombre_adm" name="nombre_adm" value="{{ user_name }}" readonly>
+                        </div>
+                        
+                        <div class="col-md-12 mb-3">
+                            <label for="observacion" class="form-label">
+                                <i class="fas fa-comment"></i> Observaciones
+                            </label>
+                            <textarea class="form-control" id="observacion" name="observacion" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnGuardarPrestamo">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/prestamos.js' %}"></script>
 
 {% endblock %}

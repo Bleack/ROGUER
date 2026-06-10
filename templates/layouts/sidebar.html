@@ -50,6 +50,40 @@
           <i class="nav-icon far fa-calendar-alt"></i> Último inicio de sesión: {{ user.last_login|date:"d/m/Y H:i" }}
         </a>
       </li>
+      <div class="sidebar-footer"><hr></div>
+      <li class="nav-item">
+        <a href="#" class="nav-link disabled">&nbsp; 
+          <i class="nav-icon fas fa-rocket"></i> Acciones rápidas
+        </a>
+      </li>
+      </li>
+      <div class="acciones_rapidas">
+        <div class="espacio">&nbsp;</div>
+        <li>
+          <a href="#" class="badges text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRapidoCategoria">
+              <i class="far fa-plus-square"></i> Registrar Categoría
+          </a>
+        </li>
+        <div class="espacio">&nbsp;</div>
+        <li>
+          <!-- <a href="#" class="badges_disabled text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRapidoEquipo"> -->
+          <a href="#" class="badges_disabled text-dark text-decoration-none">
+              <i class="far fa-plus-square"></i> Registrar Equipo
+          </a>
+        </li>
+        <div class="espacio">&nbsp;</div>
+        <li>
+          <a href="#" class="badges_disabled text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRapidoPrestamo">
+              <i class="far fa-plus-square"></i> Registrar Préstamo
+          </a>
+        </li>
+        <div class="espacio">&nbsp;</div>
+        <li>
+          <a href="#" class="badges text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalRapidoUsuario">
+              <i class="far fa-plus-square"></i> Registrar Usuario
+          </a>
+        </li>
+      </div>
     </ul>
   </div>
   <div class="sidebar-footer">

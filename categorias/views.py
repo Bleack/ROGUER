@@ -14,7 +14,10 @@ def index(request):
     }
     return render(request, 'categorias/categorias.html', context)
 
-
+def lista_json(request):
+    categorias = list(Categoria.objects.values('id', 'nombre').order_by('nombre'))
+    return JsonResponse({'results': categorias})
+    
 @method_decorator(login_required, name='dispatch')
 class CategoriaCreateView(CreateView):
     model = Categoria

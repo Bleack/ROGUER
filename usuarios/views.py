@@ -14,7 +14,10 @@ def index(request):
     }
     return render(request, 'usuarios/usuarios.html', context)
 
-
+def lista_json(request):
+    usuarios = list(Usuario.objects.values('id', 'nombre', 'rut').order_by('nombre'))
+    return JsonResponse({'results': usuarios})
+    
 @method_decorator(login_required, name='dispatch')
 class UsuarioCreateView(CreateView):
     model = Usuario
