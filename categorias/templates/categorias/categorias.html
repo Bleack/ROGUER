@@ -2,278 +2,112 @@
 {% block content %}
 {% load static %}
 
-<style>
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+<link rel="stylesheet" href="{% static 'css/categorias.css' %}">
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f4f5f7;
-        color: #333;
-        padding: 40px 24px;
-        min-height: 100vh;
-    }
+<div id="categoriaPage" data-url-base="{% url 'categorias' %}">
+    <div class="box-home mb-3">
+        <label><i class="fas fa-tags"></i>&nbsp;Administrador de categorías</label> ⇒
+        <a href="#" class="badge text-dark text-decoration-none" style="background-color: #f1e37d;" data-bs-toggle="modal" data-bs-target="#nuevaCategoria">
+            <i class="far fa-plus-square"></i> Registrar Categoría
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="box-table">
+            <div class="table-responsive">
+                <table id="controls-table" class="table text-center table-striped table-bordered">
+                    <thead class="third-title">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cantidad equipos</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in categorias %}
+                        <tr>
+                            <td>{{ cat.id }}</td>
+                            <td>{{ cat.nombre }}</td>
+                            <td>
+                                <span class="badge bg-success d-inline-flex align-items-center py-1 px-2 equipos-badge">
+                                    <i class="fas fa-desktop me-1"></i>
+                                    {{ cat.cantidad_equipos }} Equipos
+                                </span>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-editar" data-bs-toggle="modal" data-bs-target="#editarCategoria"
+                                   data-id="{{ cat.id }}" data-nombre_categoria="{{ cat.nombre }}">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
 
-    /* ───────── TITULO ───────── */
-    .section-title {
-        width: 100%;
-        background: #1f2937;
-        color: #fff;
-        padding: 16px 24px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    .section-title i {
-        margin-right: 8px;
-    }
-
-    .table-wrapper {
-        max-width: 1500px;
-        margin: 0 auto;
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
-        overflow: hidden;
-    }
-
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        padding: 16px 18px 8px 18px;
-        font-size: 13px;
-        color: #555;
-    }
-
-    .dataTables_wrapper .dataTables_length select,
-    .dataTables_wrapper .dataTables_filter input {
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-        padding: 6px 10px;
-        font-size: 13px;
-        font-family: 'Inter', sans-serif;
-        color: #333;
-        background: #fff;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-
-    .dataTables_wrapper .dataTables_length select:focus,
-    .dataTables_wrapper .dataTables_filter input:focus {
-        border-color: #4a5568;
-        box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.12);
-    }
-
-    .dataTables_wrapper .dataTables_filter input {
-        margin-left: 8px;
-    }
-
-    .dataTables_wrapper .dataTables_filter label {
-        font-weight: 500;
-    }
-
-    table.dataTable {
-        width: 100% !important;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin: 0 !important;
-    }
-
-    table.dataTable thead th {
-        background: #f9fafb;
-        color: #374151;
-        font-weight: 600;
-        font-size: 12.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        padding: 12px 18px;
-        border-bottom: 2px solid #e5e7eb;
-        text-align: left;
-        white-space: nowrap;
-        position: relative;
-    }
-
-    table.dataTable tbody td {
-        padding: 11px 18px;
-        font-size: 13.5px;
-        color: #4b5563;
-        border-bottom: 1px solid #f0f0f0;
-        vertical-align: middle;
-    }
-
-    table.dataTable tbody tr {
-        background-color: #ffffff;
-        transition: background-color 0.15s;
-    }
-
-    table.dataTable tbody tr.even {
-        background-color: #fafbfc;
-    }
-
-    table.dataTable tbody tr:hover {
-        background-color: #f0f4ff !important;
-    }
-
-    table.dataTable.no-footer {
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .dataTables_wrapper .dataTables_paginate {
-        padding: 14px 18px 16px 18px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        border: 1px solid #d1d5db !important;
-        border-radius: 6px !important;
-        background: #ffffff !important;
-        color: #4b5563 !important;
-        padding: 6px 12px !important;
-        font-size: 13px !important;
-        font-family: 'Inter', sans-serif !important;
-        font-weight: 500;
-        margin: 0 2px;
-        cursor: pointer;
-        transition: all 0.2s;
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background: #f3f4f6 !important;
-        color: #111827 !important;
-        border-color: #9ca3af !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        border-color: #4a5568 !important;
-        font-weight: 600;
-    }
-
-    .dataTables_wrapper .dataTables_info {
-        padding: 14px 18px 16px 18px;
-        font-size: 13px;
-        color: #6b7280;
-    }
-
-    @media (max-width: 640px) {
-        body {
-            padding: 16px 8px;
-        }
-
-        table.dataTable thead th,
-        table.dataTable tbody td {
-            padding: 10px 12px;
-            font-size: 12.5px;
-        }
-    }
-</style>
-
-
-<div class="section-title">
-    <i class="fas fa-laptop"></i>
-    Categorías
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="table-wrapper">
-        <table id="employeeTable" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Cantidad equipos</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Cámaras</td>
-                    <td>30</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Computadores</td>
-                    <td>15</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Impresoras</td>
-                    <td>40</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Monitores</td>
-                    <td>100</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Notebooks</td>
-                    <td>60</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Parlantes</td>
-                    <td>8</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Proyectores</td>
-                    <td>27</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Tablets</td>
-                    <td>30</td>
-                    <td><i class="far fa-edit"></i></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="modal fade" id="nuevaCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="nuevaCategoriaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevaCategoriaLabel">Registrar Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="registrar_categoria_form" novalidate>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <i class="fas fa-tag"></i>
+                        <label for="nombre_categoria_crear" class="form-label">Nombre de Categoría:</label>
+                        <input type="text" id="nombre_categoria_crear" name="nombre" autocomplete="off" class="form-control" required placeholder="Notebooks">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $('#employeeTable').DataTable({
-                pageLength: 10,
-                lengthMenu: [10, 25, 50, 100],
-                language: {
-                    lengthMenu: '_MENU_ Registro',
-                    search: 'Buscar:',
-                    info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
-                    infoEmpty: 'Showing 0 to 0 of 0 entries',
-                    infoFiltered: '(filtered from _MAX_ total entries)',
-                    paginate: {
-                        first: 'First',
-                        last: 'Last',
-                        next: 'Siguiente',
-                        previous: 'Anterior'
-                    }
-                },
-                order: [[0, 'asc']],
-                columnDefs: [
-                    { orderable: true, targets: [0, 1, 2, 3] }
-                ]
-            });
-        });
-    </script>
+<div class="modal fade" id="editarCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editarCategoriaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarCategoriaLabel">Editar Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="editar_categoria_form" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="edit_categoria_id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <i class="fas fa-tag"></i>
+                        <label for="nombre_categoria_actual" class="form-label">Nombre Actual:</label>
+                        <input type="text" id="nombre_categoria_actual" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-tag"></i>
+                        <label for="nombre_categoria_editar" class="form-label">Nuevo Nombre de Categoría:</label>
+                        <input type="text" id="nombre_categoria_editar" name="nombre" autocomplete="off" class="form-control" required placeholder="Ingrese nuevo nombre">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/categorias.js' %}"></script>
 
 {% endblock %}

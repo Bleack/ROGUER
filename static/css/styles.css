@@ -84,7 +84,7 @@ body {
     text-decoration: none;
     display: block;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
     transition: background-color 0.2s ease;
     padding: 10px 10px;
     width: 95%;
@@ -122,7 +122,7 @@ body {
     display: flex;
     align-items: center;
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
     text-decoration: none;
     transition: 0.3s;
     border-radius: 5px;

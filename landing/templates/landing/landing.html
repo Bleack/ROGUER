@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}" />
     <link href="{% static 'libs/bootstrap.min.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/landing.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" />
     <script src="{% static 'libs/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'libs/bootstrap.bundle.min.js' %}"></script>
     <title>ROGUER - Control total de tus activos tecnológicos</title>
@@ -44,6 +45,7 @@
                 </div>
             </div>
         </nav>
+
         <section class="hero-section" id="inicio">
             <div class="container">
                 <div class="row align-items-center">
@@ -73,6 +75,7 @@
                 </div>
             </div>
         </section>
+
         <section class="features-section" id="caracteristicas">
             <div class="container">
                 <div class="text-center mb-5">
@@ -128,6 +131,7 @@
                 </div>
             </div>
         </section>
+
         <section class="tech-section" id="tecnologia">
             <div class="container">
                 <div class="text-center mb-5">
@@ -197,6 +201,7 @@
                 </div>
             </div>
         </section>
+
         <section class="contact-section" id="contacto">
             <div class="container">
                 <div class="text-center mb-5">
@@ -239,27 +244,28 @@
                     </div>
                     <div class="col-lg-7">
                         <div class="contact-form-wrapper">
-                            <form id="contactForm">
+                            {% csrf_token %}
+                            <form id="contactForm" novalidate>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label">Nombre completo</label>
-                                        <input type="text" class="form-control" placeholder="Tu nombre">
+                                        <input type="text" name="nombre_completo" class="form-control" placeholder="Tu nombre" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="tu@email.com">
+                                        <input type="email" name="email" class="form-control" placeholder="tu@email.com" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Empresa</label>
-                                        <input type="text" class="form-control" placeholder="Nombre de tu empresa">
+                                        <input type="text" name="empresa" class="form-control" placeholder="Nombre de tu empresa">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Teléfono</label>
-                                        <input type="tel" class="form-control" placeholder="+57 (XXX) XXX-XXXX">
+                                        <input type="tel" name="telefono" class="form-control" placeholder="+569 12345678">
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Asunto</label>
-                                        <select class="form-control">
+                                        <select name="asunto" class="form-control" required>
                                             <option value="" disabled selected>Selecciona una opción</option>
                                             <option value="demo">Solicitar Demo</option>
                                             <option value="info">Solicitar Información</option>
@@ -269,12 +275,12 @@
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Mensaje</label>
-                                        <textarea class="form-control" placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
+                                        <textarea name="mensaje" class="form-control" rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
                                     </div>
                                     <div class="col-12 mt-4">
-                                        <a href="#" class="btn-submit">
+                                        <button type="submit" class="btn-submit">
                                             <i class="fas fa-paper-plane me-2"></i>Enviar Mensaje
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -284,5 +290,7 @@
             </div>
         </section>
     </div>
+    <script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'js/landing.js' %}"></script>
 </body>
 </html>

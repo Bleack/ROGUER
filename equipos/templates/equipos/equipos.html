@@ -1,7 +1,221 @@
 {% extends 'layouts/base.html' %}
 {% block content %}
 {% load static %}
-<br>
-<img src="{% static 'img/ejemplo_equipos.png' %}" alt="..." class="img-fluid" >
+
+<link rel="stylesheet" href="{% static 'css/equipos.css' %}">
+
+<div id="equipoPage" data-url-base="{% url 'equipos' %}">
+
+    <div class="box-home" id="welcome-message" style="display: flex; justify-content: center; align-items: center;">
+        <label style="margin: 0;"><i class="fas fa-laptop"></i>&nbsp;Seleccione las categorías a visualizar</label>
+    </div>
+
+    <div class="box-home" id="category-message" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <label style="font-weight: bold; margin: 0;">
+                <i class="fas fa-laptop"></i>&nbsp;Gestor de Equipos ⇒
+                <div class="badge text-dark text-decoration-none" style="background-color: #f1e37d;">
+                    <span id="category-name"></span>
+                </div>
+                ⇒
+                <div class="badge text-dark text-decoration-none" style="background-color: #f1e37d; cursor: pointer;" id="registrar-equipo-btn">
+                    <i class="far fa-plus-square"></i> Registrar Equipo
+                </div>
+            </label>
+            <div style="display: flex; align-items: center;">
+                <select id="category-selector" class="form-select form-select-sm" style="width: auto; min-width: 150px;">
+                    <option value="">Seleccionar categoría</option>
+                    {% for cat in categorias %}
+                    <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 dependencias-container">
+        {% for cat in categorias %}
+        <a href="#" class="dependencias-box" data-categoria="{{ cat.id }}" data-nombre="{{ cat.nombre }}">
+            <div class="tittle">{{ cat.nombre }}</div>
+            <hr>
+            <div class="secondtext">
+                <i class="fa fa-laptop"></i>
+                Cantidad de equipos: {{ cat.total_equipos }}
+            </div>
+        </a>
+        {% empty %}
+
+        {% endfor %}
+    </div>
+
+    <div class="box-table mt-3" style="display: none;">
+        <div class="table-responsive">
+            <table id="controls-table" class="table text-center table-striped table-bordered">
+                <thead class="third-title">
+                    <tr>
+                        <th>ID</th>
+                        <th>N° Inventario</th>
+                        <th>N° Serie</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Fondos</th>
+                        <th>Observaciones</th>
+                        <th>Gestionar</th>
+                        <th>Dar de Baja</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="gestionarEquipo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gestionarEquipoLabel">Editar Equipo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="editar_equipo_form" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="edit_equipo_id">
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <i class="fas fa-tag"></i>
+                        <label for="edit_marca" class="form-label">Marca:</label>
+                        <input type="text" id="edit_marca" name="marca" class="form-control" autocomplete="off" required placeholder="Marca del equipo">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-cube"></i>
+                        <label for="edit_modelo" class="form-label">Modelo:</label>
+                        <input type="text" id="edit_modelo" name="modelo" class="form-control" autocomplete="off" required placeholder="Modelo del equipo">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-barcode"></i>
+                        <label for="edit_nserie" class="form-label">N° Serie:</label>
+                        <input type="text" id="edit_nserie" class="form-control" autocomplete="off" readonly required>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-clipboard-list"></i>
+                        <label for="edit_ninv" class="form-label">N° Inventario:</label>
+                        <input type="text" id="edit_ninv" class="form-control" autocomplete="off" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-coins"></i>
+                        <label for="edit_fondos" class="form-label">Fondos:</label>
+                        <input type="text" id="edit_fondos" class="form-control" autocomplete="off" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-user-tie"></i>
+                        <label for="edit_nombre_adm" class="form-label">ADM que registró:</label>
+                        <input type="text" id="edit_nombre_adm" class="form-control" autocomplete="off" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <i class="fas fa-align-left"></i>
+                        <label for="edit_observaciones" class="form-label">Observaciones:</label>
+                        <textarea id="edit_observaciones" name="observaciones" class="form-control" rows="2" placeholder="Observaciones del equipo"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="darBajaEquipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="darBajaEquipoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="darBajaEquipoModalLabel">Confirmar Baja</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <strong>
+                    <input type="hidden" id="id_equipo_a_baja" value="" autocomplete="off">
+                    <p>¿Estás seguro de dar de baja al siguiente equipo?</p>
+                    <div class="mb-2">
+                        <strong>Marca:</strong> <span id="marca_baja_display" style="font-weight: bold;">[Marca]</span>
+                    </div>
+                    <div class="mb-2">
+                        <strong>Modelo:</strong> <span id="modelo_baja_display" style="font-weight: bold;">[Modelo]</span>
+                    </div>
+                    <div class="mb-2">
+                        <strong>N° Serie:</strong> <span id="nserie_baja_display" style="font-weight: bold;">[N° Serie]</span>
+                    </div>
+                    Puede reactivar el equipo en el módulo de Equipos de Baja.
+                    </strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="confirmar_baja_equipo_btn" class="btn btn-danger">Dar de Baja</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="registrarEquipo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrarEquipoLabel">Registrar Nuevo Equipo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="registrar_equipo_form" novalidate>
+                {% csrf_token %}
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <i class="fas fa-tag"></i>
+                        <label for="reg_marca" class="form-label">Marca:</label>
+                        <input type="text" id="reg_marca" name="marca" class="form-control" autocomplete="off" required placeholder="Marca del equipo">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-cube"></i>
+                        <label for="reg_modelo" class="form-label">Modelo:</label>
+                        <input type="text" id="reg_modelo" name="modelo" class="form-control" autocomplete="off" required placeholder="Modelo del equipo">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-barcode"></i>
+                        <label for="reg_nserie" class="form-label">N° Serie:</label>
+                        <input type="text" id="reg_nserie" name="nserie" class="form-control" autocomplete="off" required placeholder="Número de serie">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-clipboard-list"></i>
+                        <label for="reg_ninv" class="form-label">N° Inventario:</label>
+                        <input type="text" id="reg_ninv" name="ninv" class="form-control" autocomplete="off" required placeholder="Número de inventario">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-coins"></i>
+                        <label for="reg_fondos" class="form-label">Fondos:</label>
+                        <input type="text" id="reg_fondos" name="fondos" class="form-control" autocomplete="off" required placeholder="Fondos">
+                    </div>
+                    <div class="col-md-6">
+                        <i class="fas fa-user-tie"></i>
+                        <label for="reg_nombre_adm" class="form-label">Registrado por:</label>
+                        <input type="text" id="reg_nombre_adm" class="form-control" autocomplete="off" readonly value="{{ user_name }}">
+                    </div>
+                    <div class="col-md-12">
+                        <i class="fas fa-align-left"></i>
+                        <label for="reg_observaciones" class="form-label">Observaciones:</label>
+                        <textarea id="reg_observaciones" name="observaciones" class="form-control" rows="2" placeholder="Observaciones del equipo"></textarea>
+                    </div>
+                    <input type="hidden" id="reg_id_categoria" name="categoria" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Registrar Equipo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/equipos.js' %}"></script>
 
 {% endblock %}
