@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from .models import ContactoLanding
 
 
@@ -67,3 +68,36 @@ def contacto_landing(request):
             'ok': False,
             'mensaje_global': 'Ocurrió un error inesperado. Intenta nuevamente.'
         }, status=500)
+
+
+@login_required
+def contacto_lista(request):
+    contactos = ContactoLanding.objects.all().order_by('-id')
+    return render(request, 'landing/contacto_lista.html', {
+        'title': 'Contactos recibidos',
+        'contactos': contactos
+    })
+
+
+@require_POST
+@csrf_exempt
+def contacto_detalle(request):
+    contacto_id = request.POST.get('id')
+    try:
+        contacto = ContactoLanding.objects.get(id=contacto_id)
+    except ContactoLanding.DoesNotExist:
+        return JsonResponse({'ok': False, 'mensaje': 'Registro no encontrado.'}, status=404)
+    
+    return JsonResponse({
+        'ok': True,
+        'data': {
+            'id': contacto.id,
+            'nombre_completo': contacto.nombre_completo,
+            'email': contacto.email,
+            'empresa': contacto.empresa,
+            'telefono': contacto.telefono,
+            'asunto': contacto.get_asunto_display(),
+            'mensaje': contacto.mensaje,
+            'fecha_registro': contacto.fecha_registro.strftime('%d/%m/%Y %H:%M')
+        }
+    })

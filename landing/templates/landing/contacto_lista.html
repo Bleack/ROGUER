@@ -1,0 +1,104 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/contacto_lista.css' %}">
+
+<div id="contactoPage" data-url-base="{% url 'contacto_tabla' %}">
+    <div class="box-home">
+        <div><i class="fas fa-envelope-open-text"></i>&nbsp; Contactos recibidos</div>
+    </div>
+
+    <div class="box-table">
+        <div class="table-responsive">
+            <table id="contactoTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario de contacto</th>
+                        <th>Fecha de envío</th>
+                        <th>Visualizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in contactos %}
+                    <tr>
+                        <td>{{ c.id }}</td>
+                        <td>{{ c.nombre_completo }}</td>
+                        <td>{{ c.fecha_registro|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <a href="#" class="btn-ver-contacto" data-id="{{ c.id }}" title="Ver detalles">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalVerContacto" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="far fa-envelope-open-text"></i> Detalle del contacto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body row">
+                <input type="hidden" id="ver_id">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-user"></i> Nombre completo</label>
+                        <input type="text" id="ver_nombre" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="ver_email" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-building"></i> Empresa</label>
+                        <input type="text" id="ver_empresa" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-phone"></i> Teléfono</label>
+                        <input type="text" id="ver_telefono" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-tag"></i> Tipo de solicitud</label>
+                        <input type="text" id="ver_asunto" class="form-control" readonly>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label"><i class="fas fa-comment-dots"></i> Mensaje</label>
+                        <textarea id="ver_mensaje" class="form-control" rows="6" readonly></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-0">
+                            <label class="form-label"><i class="far fa-calendar-alt"></i> Fecha de registro</label>
+                            <input type="text" id="ver_fecha" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'libs/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/contacto_lista.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,136 @@
+.box-home {
+    margin-top: .75rem;
+    padding: .75rem;
+    background-color: #2a303d;
+    border: 1px solid rgba(255, 255, 255, 0.153);
+    border-radius: .5rem;
+    height: 100%;
+    color: white;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-family: Poppins;
+}
+
+.box-table {
+    margin-top: .75rem;
+    padding: .75rem;
+    background-color: #D4D4D4;
+    border-radius: .5rem;
+    height: 100%;
+    color: black;
+    align-items: center;
+    text-align: center;
+    font-size: 13px;
+    font-family: Poppins;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+#contactoTable {
+    width: 100% !important;
+    table-layout: auto !important;
+    color: black !important;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+    border: none !important;
+}
+
+#contactoTable td,
+#contactoTable th {
+    vertical-align: middle;
+    text-align: center;
+    padding: 11px 18px;
+    color: black !important;
+    border: none !important;
+    white-space: normal !important;
+    overflow: visible;
+    text-overflow: unset;
+}
+
+#contactoTable a {
+    color: #4a5568 !important;
+}
+
+#contactoTable th:nth-child(1),
+#contactoTable td:nth-child(1) {
+    min-width: 5%;
+    max-width: 8%;
+}
+
+#contactoTable th:nth-child(2),
+#contactoTable td:nth-child(2) {
+    min-width: 20%;
+    max-width: 30%;
+}
+
+#contactoTable th:nth-child(3),
+#contactoTable td:nth-child(3) {
+    min-width: 15%;
+    max-width: 22%;
+}
+
+#contactoTable th:nth-child(4),
+#contactoTable td:nth-child(4) {
+    min-width: 15%;
+    max-width: 22%;
+}
+
+#contactoTable th:nth-child(5),
+#contactoTable td:nth-child(5) {
+    min-width: 15%;
+    max-width: 22%;
+}
+
+#contactoTable th:nth-child(6),
+#contactoTable td:nth-child(6) {
+    min-width: 15%;
+    max-width: 22%;
+}
+
+#contactoTable th:nth-child(7),
+#contactoTable td:nth-child(7) {
+    min-width: 30%;
+    max-width: 45%;
+}
+
+#contactoTable th:nth-child(8),
+#contactoTable td:nth-child(8) {
+    min-width: 14%;
+    max-width: 18%;
+}
+
+.btn-ver-contacto {
+    background: none;
+    border: none;
+    color: #4a5568;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.btn-ver-contacto:hover {
+    background: #e8ecf4;
+    color: #1f2937;
+}
+
+.modal.fade .modal-dialog {
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    transform: translateY(-30px);
+    opacity: 0;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-backdrop.fade {
+    transition: opacity 0.15s ease;
+}
